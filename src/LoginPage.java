@@ -65,7 +65,8 @@ public class LoginPage extends JFrame {
             String password = new String(passwordField.getPassword());
 
             if (username.equals("admin") && password.equals("password")) {
-                JOptionPane.showMessageDialog(this, "Login successful!");
+                new MainDashboardPage(username);
+                dispose();
                 // Proceed to next page
             } else {
                 errorLabel.setVisible(true);
