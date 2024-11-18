@@ -15,6 +15,7 @@ public class LoginPage {
     private JLabel loginLabel;
     private JLabel passwordLabel;
     private JPanel loginFieldPanel;
+    private JLabel errorMessage;
 
     public LoginPage(JFrame frame) {
 
@@ -35,6 +36,8 @@ public class LoginPage {
                     frame.setContentPane(new MainDashboard(frame).getDashboardPanel());
                     frame.revalidate();
                     frame.repaint();
+                } else {
+                    errorMessage.setVisible(true);
                 }
             }
         });

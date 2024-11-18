@@ -39,12 +39,13 @@
           </hspacer>
         </children>
       </grid>
-      <grid id="86f6e" binding="loginFieldPanel" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="0">
+      <grid id="86f6e" binding="loginFieldPanel" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="0">
         <margin top="0" left="180" bottom="150" right="180"/>
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-5587033"/>
           <foreground color="-5587033"/>
+          <visible value="true"/>
         </properties>
         <border type="none"/>
         <children>
@@ -64,7 +65,7 @@
           </component>
           <component id="654b0" class="javax.swing.JButton" binding="loginButton">
             <constraints>
-              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-6180"/>
@@ -119,6 +120,17 @@
               <foreground color="-6180"/>
               <labelFor value="e03e0"/>
               <text value="Password"/>
+            </properties>
+          </component>
+          <component id="cadc8" class="javax.swing.JLabel" binding="errorMessage">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Arial" size="16" style="0"/>
+              <foreground color="-1245176"/>
+              <text value="Incorrect username or password!"/>
+              <visible value="false"/>
             </properties>
           </component>
         </children>
