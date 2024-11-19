@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<questions>
+    <!-- EASY QUESTIONS -->
+    <question difficulty="EASY">
+        <topic>English</topic>
+        <questionString>What is the synonym of 'happy'?</questionString>
+        <option>Sad</option>
+        <option>Tired</option>
+        <option answer="true">Joyful</option>
+        <option>Angry</option>
+    </question>
+    <question difficulty="EASY">
+        <topic>English</topic>
+        <questionString>What is the plural form of 'child'?</questionString>
+        <option>Childs</option>
+        <option>Children</option>
+        <option answer="true">Children</option>
+        <option>Childen</option>
+    </question>
+    <question difficulty="EASY">
+        <topic>English</topic>
+        <questionString>Which of these is a noun?</questionString>
+        <option>Run</option>
+        <option>Beautiful</option>
+        <option answer="true">Table</option>
+        <option>Quickly</option>
+    </question>
+    <question difficulty="EASY">
+        <topic>English</topic>
+        <questionString>What does the word 'big' mean?</questionString>
+        <option answer="true">Large in size</option>
+        <option>Small in size</option>
+        <option>Of medium size</option>
+        <option>None of the above</option>
+    </question>
+
+    <!-- MEDIUM QUESTIONS -->
+    <question difficulty="MEDIUM">
+        <topic>English</topic>
+        <questionString>Which word is the antonym of 'ancient'?</questionString>
+        <option>Old</option>
+        <option answer="true">Modern</option>
+        <option>Historic</option>
+        <option>Antique</option>
+    </question>
+    <question difficulty="MEDIUM">
+        <topic>English</topic>
+        <questionString>What is the meaning of 'meticulous'?</questionString>
+        <option>Careless</option>
+        <option>Quick</option>
+        <option>Hasty</option>
+        <option answer="true">Very careful and precise</option>
+    </question>
+    <question difficulty="MEDIUM">
+        <topic>English</topic>
+        <questionString>What is the synonym of 'benevolent'?</questionString>
+        <option>Hostile</option>
+        <option answer="true">Kind</option>
+        <option>Rude</option>
+        <option>Angry</option>
+    </question>
+
+    <!-- HARD QUESTIONS -->
+    <question difficulty="HARD">
+        <topic>English</topic>
+        <questionString>What does the idiom 'a blessing in disguise' mean?</questionString>
+        <option>Something bad that remains bad</option>
+        <option>A punishment</option>
+        <option answer="true">Something good that seems bad at first</option>
+        <option>Something mysterious</option>
+    </question>
+    <question difficulty="HARD">
+        <topic>English</topic>
+        <questionString>What does the word 'quintessential' mean?</questionString>
+        <option>Unimportant</option>
+        <option>Ordinary</option>
+        <option>Irrelevant</option>
+        <option answer="true">The most perfect or typical example</option>
+    </question>
+    <question difficulty="HARD">
+        <topic>English</topic>
+        <questionString>What is the meaning of 'alacrity'?</questionString>
+        <option answer="true">Eagerness</option>
+        <option>Laziness</option>
+        <option>Confusion</option>
+        <option>Hesitation</option>
+    </question>
+</questions>

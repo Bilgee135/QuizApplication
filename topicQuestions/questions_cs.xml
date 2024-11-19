@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<questions>
+    <!-- EASY QUESTIONS -->
+    <question difficulty="EASY">
+        <topic>Computer Science</topic>
+        <questionString>What is an integer datatype?</questionString>
+        <option>A data type used for decimal numbers</option>
+        <option>A data type for storing strings</option>
+        <option answer="true">A data type for whole numbers</option>
+        <option>A type of variable for characters</option>
+    </question>
+    <question difficulty="EASY">
+        <topic>Computer Science</topic>
+        <questionString>Which of these is a programming language?</questionString>
+        <option>HTML</option>
+        <option>CSS</option>
+        <option answer="true">Python</option>
+        <option>JPEG</option>
+    </question>
+    <question difficulty="EASY">
+        <topic>Computer Science</topic>
+        <questionString>What does CPU stand for?</questionString>
+        <option>Central Process Utility</option>
+        <option>Computer Processing Unit</option>
+        <option answer="true">Central Processing Unit</option>
+        <option>Control Programming Unit</option>
+    </question>
+    <question difficulty="EASY">
+        <topic>Computer Science</topic>
+        <questionString>Which of these is not an operating system?</questionString>
+        <option>Linux</option>
+        <option>Windows</option>
+        <option>macOS</option>
+        <option answer="true">MySQL</option>
+    </question>
+
+    <!-- MEDIUM QUESTIONS -->
+    <question difficulty="MEDIUM">
+        <topic>Computer Science</topic>
+        <questionString>What is the purpose of a compiler?</questionString>
+        <option answer="true">To translate high-level code into machine code</option>
+        <option>To execute code line by line</option>
+        <option>To debug the program</option>
+        <option>To optimize program performance</option>
+    </question>
+    <question difficulty="MEDIUM">
+        <topic>Computer Science</topic>
+        <questionString>What is the time complexity of a binary search algorithm?</questionString>
+        <option>O(n)</option>
+        <option>O(n^2)</option>
+        <option answer="true">O(log n)</option>
+        <option>O(1)</option>
+    </question>
+    <question difficulty="MEDIUM">
+        <topic>Computer Science</topic>
+        <questionString>Which data structure is used for First-In-First-Out (FIFO) operations?</questionString>
+        <option>Stack</option>
+        <option>Array</option>
+        <option answer="true">Queue</option>
+        <option>Tree</option>
+    </question>
+
+    <!-- HARD QUESTIONS -->
+    <question difficulty="HARD">
+        <topic>Computer Science</topic>
+        <questionString>What does Big O notation describe?</questionString>
+        <option>The programming language of an algorithm</option>
+        <option>The syntax of a program</option>
+        <option answer="true">The performance or complexity of an algorithm</option>
+        <option>The memory usage of a program</option>
+    </question>
+    <question difficulty="HARD">
+        <topic>Computer Science</topic>
+        <questionString>What is the primary purpose of the stack pointer in a CPU?</questionString>
+        <option>To store global variables</option>
+        <option>To point to the next instruction</option>
+        <option answer="true">To point to the top of the stack</option>
+        <option>To manage input/output operations</option>
+    </question>
+    <question difficulty="HARD">
+        <topic>Computer Science</topic>
+        <questionString>Which of the following is a characteristic of Object-Oriented Programming?</questionString>
+        <option>Functions without classes</option>
+        <option>Procedural code</option>
+        <option answer="true">Encapsulation</option>
+        <option>Machine-level instructions</option>
+    </question>
+</questions>

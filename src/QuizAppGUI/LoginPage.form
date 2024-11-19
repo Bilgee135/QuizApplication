@@ -128,7 +128,7 @@
             </constraints>
             <properties>
               <font name="Arial" size="16" style="0"/>
-              <foreground color="-1245176"/>
+              <foreground color="-4259840"/>
               <text value="Incorrect username or password!"/>
               <visible value="false"/>
             </properties>
