@@ -1,12 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class IndexPage extends JFrame {
+public class Index extends JFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;
     private UserAuthentication userAuth;
 
-    public IndexPage(CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth) {
+    public Index(CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth) {
         // Set up the JFrame
         this.userAuth = userAuth;  // Set userAuth
         setTitle("Quiz Application");
@@ -18,34 +18,38 @@ public class IndexPage extends JFrame {
         this.cardLayout = cardLayout;
         this.cardPanel = cardPanel;
 
-        // Initialize the main panel (IndexPage), login panel, and register panel
-        cardPanel.add(createMainPanel(), "IndexPage");
+        // Initialize the main panel (Index), login panel, and register panel
+        cardPanel.add(createMainPanel(), "Index");
         cardPanel.add(new LoginPanel(cardLayout, cardPanel, userAuth).getLoginPanel(), "LoginPage");
         cardPanel.add(new RegisterPanel(cardLayout, cardPanel, userAuth).getRegisterPanel(), "RegisterPage");
 
-        // Set the initial panel to IndexPage
-        cardLayout.show(cardPanel, "IndexPage");
+        MainDashboard mainDashboard = new MainDashboard(cardLayout, cardPanel);
+        cardPanel.add(mainDashboard.getDashboardPanel(), "MainDashboard");
 
-        // Add the card panel to the frame
+        cardLayout.show(cardPanel, "Index"); // sets the first page to be Index.java
+
         add(cardPanel);
-        setVisible(true);  // Make the frame visible
+        setVisible(true);
     }
 
     // Create the main panel with buttons for Login and Signup
     private JPanel createMainPanel() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBackground(Color.WHITE);
+        mainPanel.setBackground(Color.decode("#EBF2FA"));
 
         // Title label
         JLabel titleLabel = new JLabel("Quiz Application");
         titleLabel.setFont(new Font("Calibre", Font.BOLD, 30));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setForeground(Color.decode("#427AA1"));
 
         // Login button
         JButton loginButton = new JButton("Login");
         loginButton.setPreferredSize(new Dimension(200, 40));
         loginButton.setMaximumSize(new Dimension(200, 40));
+        loginButton.setBackground(Color.decode("#064789"));
+        loginButton.setForeground(Color.decode("#EBF2FA"));
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setFocusable(false);
         loginButton.addActionListener(e -> cardLayout.show(cardPanel, "LoginPage"));
@@ -54,16 +58,18 @@ public class IndexPage extends JFrame {
         JButton signupButton = new JButton("Signup");
         signupButton.setPreferredSize(new Dimension(200, 40));
         signupButton.setMaximumSize(new Dimension(200, 40));
+        signupButton.setBackground(Color.decode("#064789"));
+        signupButton.setForeground(Color.decode("#EBF2FA"));
         signupButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         signupButton.setFocusable(false);
         signupButton.addActionListener(e -> cardLayout.show(cardPanel, "RegisterPage"));
 
         // Add components to the main panel with spacing
-        mainPanel.add(Box.createVerticalStrut(100)); // Space above the title
+        mainPanel.add(Box.createVerticalStrut(100));
         mainPanel.add(titleLabel);
-        mainPanel.add(Box.createVerticalStrut(50)); // Space between title and buttons
+        mainPanel.add(Box.createVerticalStrut(50));
         mainPanel.add(loginButton);
-        mainPanel.add(Box.createVerticalStrut(20)); // Space between buttons
+        mainPanel.add(Box.createVerticalStrut(20));
         mainPanel.add(signupButton);
 
         return mainPanel;
@@ -78,8 +84,8 @@ public class IndexPage extends JFrame {
             CardLayout cardLayout = new CardLayout();
             JPanel cardPanel = new JPanel(cardLayout);
 
-            // Create and add IndexPage and RegisterPanel
-            new IndexPage(cardLayout, cardPanel, userAuth);
+            // Create and add Index and RegisterPanel
+            new Index(cardLayout, cardPanel, userAuth);
         });
     }
 }

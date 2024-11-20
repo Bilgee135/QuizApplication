@@ -19,19 +19,23 @@ public class LoginPanel {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("Back");
         backButton.setFocusable(false);
-        backButton.addActionListener(e -> cardLayout.show(cardPanel, "IndexPage"));
+        backButton.addActionListener(e -> cardLayout.show(cardPanel, "Index"));
+        backButton.setBackground(Color.decode("#064789"));
+        backButton.setForeground(Color.decode("#EBF2FA"));
+        topPanel.setBackground(Color.decode("#EBF2FA"));
         topPanel.add(backButton);
         loginPanel.add(topPanel, BorderLayout.NORTH);
 
         // Center panel for login components
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBackground(Color.WHITE);
+        centerPanel.setBackground(Color.decode("#EBF2FA"));
 
         // Title label
         JLabel titleLabel = new JLabel("Login");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setForeground(Color.decode("#427AA1"));
 
         // Username field
         loginUsernameField = new JTextField(20);  // Set preferred size
@@ -53,15 +57,18 @@ public class LoginPanel {
         JButton loginButton = new JButton("Login");
         loginButton.setPreferredSize(new Dimension(200, 40));
         loginButton.setMaximumSize(new Dimension(200, 40));
+        loginButton.setBackground(Color.decode("#064789"));
+        loginButton.setForeground(Color.decode("#EBF2FA"));
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setFocusable(false);
 
         loginButton.addActionListener(e -> {
-            String username = loginUsernameField.getText().trim();  // Trim username input
-            String password = new String(loginPasswordField.getPassword()).trim();  // Trim password input
-            if (userAuth.login(username, password)) {  // Use the login method from UserAuthentication
+            String username = loginUsernameField.getText().trim();
+            String password = new String(loginPasswordField.getPassword()).trim();
+            if (userAuth.login(username, password)) {
                 JOptionPane.showMessageDialog(this.getLoginPanel(), "Login successful!");
-                errorLabel.setVisible(false);  // Hide error label on successful login
+                cardLayout.show(cardPanel, "MainDashboard");
+                errorLabel.setVisible(false); // Hide error label on successful login
             } else {
                 JOptionPane.showMessageDialog(this.getLoginPanel(), "Invalid username or password.");
                 errorLabel.setVisible(true);  // Show error label on failed login
@@ -106,7 +113,7 @@ public class LoginPanel {
         centerPanel.add(forgotPasswordLabel);
         centerPanel.add(Box.createVerticalStrut(20));
         centerPanel.add(loginButton);
-        centerPanel.add(Box.createVerticalStrut(10)); // Spacer between login button and register link
+        centerPanel.add(Box.createVerticalStrut(10));
         centerPanel.add(registerLinkLabel);
 
         // Add the center panel to the main panel

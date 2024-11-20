@@ -16,18 +16,22 @@ public class RegisterPanel {
         JButton backButton = new JButton("Back");
         backButton.setFocusable(false);
         backButton.addActionListener(e -> cardLayout.show(cardPanel, "LoginPage"));
+        backButton.setBackground(Color.decode("#064789"));
+        backButton.setForeground(Color.decode("#EBF2FA"));
+        topPanel.setBackground(Color.decode("#EBF2FA"));
         topPanel.add(backButton);
         registerPanel.add(topPanel, BorderLayout.NORTH);
 
         // Center panel for registration components
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBackground(Color.WHITE);
+        centerPanel.setBackground(Color.decode("#EBF2FA"));
 
         // Title label
         JLabel titleLabel = new JLabel("Create New Account");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setForeground(Color.decode("#427AA1"));
 
         // Username field
         JTextField registerUsernameField = new JTextField("Username");
@@ -133,6 +137,8 @@ public class RegisterPanel {
         JButton registerButton = new JButton("Register");
         registerButton.setPreferredSize(new Dimension(200, 40));
         registerButton.setMaximumSize(new Dimension(200, 40));
+        registerButton.setBackground(Color.decode("#064789"));
+        registerButton.setForeground(Color.decode("#EBF2FA"));
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setFocusable(false);
 
@@ -150,9 +156,9 @@ public class RegisterPanel {
             }
 
             // Call the register method of UserAuthentication
-            if (userAuth.register(username, fullName, password)) { // Register with fullName
+            if (userAuth.register(username, fullName, password)) {
                 JOptionPane.showMessageDialog(null, "Registration Successful!");
-                cardLayout.show(cardPanel, "IndexPage");  // Navigate back to index page
+                cardLayout.show(cardPanel, "Index");  // Navigate back to index page
             } else {
                 JOptionPane.showMessageDialog(null, "Username already taken. Please try again.");
             }
@@ -162,18 +168,18 @@ public class RegisterPanel {
         centerPanel.add(Box.createVerticalStrut(50));
         centerPanel.add(titleLabel);
         centerPanel.add(Box.createVerticalStrut(20));
-        centerPanel.add(registerUsernameField); // Correct field name
+        centerPanel.add(registerUsernameField);
         centerPanel.add(Box.createVerticalStrut(10));
-        centerPanel.add(fullNameField); // Add full name field
+        centerPanel.add(fullNameField);
         centerPanel.add(Box.createVerticalStrut(10));
-        centerPanel.add(registerPasswordField); // Correct field name
+        centerPanel.add(registerPasswordField);
         centerPanel.add(Box.createVerticalStrut(10));
-        centerPanel.add(confirmPasswordField); // Correct field name
+        centerPanel.add(confirmPasswordField);
         centerPanel.add(Box.createVerticalStrut(20));
         centerPanel.add(registerButton);
 
-        // Adjust the size and alignment
-        centerPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Ensure center alignment
+        // Size and alignment to be at the center of the screen
+        centerPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerPanel.add(centerPanel, BorderLayout.CENTER);
     }
 

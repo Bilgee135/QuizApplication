@@ -1,6 +1,5 @@
-package QuizAppGUI;
-
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,15 +16,13 @@ public class MainDashboard {
     private JButton topicNameButton2;
     private JButton topicNameButton3;
 
-    public MainDashboard(JFrame frame) {
+    private UserAuthentication userAuth;
 
+    public MainDashboard(CardLayout cardLayout, JPanel cardPanel) {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "You have logged out");
-                frame.setContentPane(new Index(frame).getPanel());
-                frame.revalidate();
-                frame.repaint();
+                cardLayout.show(cardPanel, "Index");
             }
         });
     }
