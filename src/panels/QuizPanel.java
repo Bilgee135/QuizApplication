@@ -3,6 +3,7 @@ package panels;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import dataModel.*;
@@ -21,8 +22,10 @@ public class QuizPanel extends JPanel {
     private JRadioButton[] optionButtons;
     private JButton nextButton;
     private ButtonGroup optionGroup;
+    private UserAuthentication userAuth;
 
-    public QuizPanel(List<Question> selectedQuestions) {
+    public QuizPanel(List<Question> selectedQuestions, CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth) {
+        this.userAuth = userAuth;
         // Shuffle and select questions
         Collections.shuffle(selectedQuestions);
         this.quizQuestions = selectedQuestions;
@@ -32,7 +35,7 @@ public class QuizPanel extends JPanel {
         setBackground(ColorChoice.BACKGROUND);
 
         // Top panel for question info
-        JPanel questionInfoPanel = new JPanel(new GridLayout(4, 1));
+        JPanel questionInfoPanel = new JPanel(new GridLayout(3, 1));
         questionInfoPanel.setBackground(ColorChoice.BACKGROUND);
         topicLabel = new JLabel();
         difficultyLabel = new JLabel();
@@ -65,13 +68,36 @@ public class QuizPanel extends JPanel {
             optionButtons[i].addActionListener(e -> handleOptionSelection(optionIndex));
         }
 
-        // Bottom panel for navigation
+        // Bottom panel for navigation (Next and Back Buttons)
         JPanel navigationPanel = new JPanel();
         navigationPanel.setBackground(ColorChoice.BACKGROUND);
+
+        // Back button
+        JButton backButton = new JButton("Quit");
+        StyleButton.styleButton(backButton, 200); // Custom styling
+        backButton.addActionListener(e -> {
+            // Confirmation dialog before quitting the quiz
+            int response = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to quit the quiz and return to the dashboard?"+"\nYour attempt won't be saved.",
+                    "Quit Quiz",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            if (response == JOptionPane.YES_OPTION) {
+                cardLayout.show(cardPanel, "panels.Dashboard"); // Navigate back to Dashboard
+            }
+        });
+
+        // Next button
         nextButton = new JButton("Next");
-        StyleButton.styleButton(nextButton);
+        StyleButton.styleButton(nextButton, 200); // Custom styling
         nextButton.setEnabled(false); // Disabled until an answer is selected
         nextButton.addActionListener(e -> loadNextQuestion());
+
+        // Add buttons to the navigation panel
+        navigationPanel.add(backButton);
         navigationPanel.add(nextButton);
 
         // Add panels to main layout
@@ -82,6 +108,7 @@ public class QuizPanel extends JPanel {
         // Load the first question
         loadQuestion();
     }
+
 
     private void loadQuestion() {
         if (currentQuestionIndex >= quizQuestions.size()) {
@@ -162,5 +189,8 @@ public class QuizPanel extends JPanel {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error saving score to file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    public JPanel getQuizPanel(){
+        return this;
     }
 }

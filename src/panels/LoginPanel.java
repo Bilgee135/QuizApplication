@@ -2,6 +2,8 @@ package panels;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import dataModel.UserAuthentication;
@@ -22,7 +24,7 @@ public class LoginPanel {
         // Top panel with back button
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("Back");
-        StyleButton.styleButton(backButton);
+        StyleButton.styleButton(backButton, 80);
         backButton.setMaximumSize(new Dimension(100,30));
         backButton.addActionListener(e -> cardLayout.show(cardPanel, "main.Index"));
         topPanel.setBackground(ColorChoice.BACKGROUND);
@@ -41,14 +43,14 @@ public class LoginPanel {
         titleLabel.setForeground(ColorChoice.TEXT_COLOR);
 
         // Username field
-        loginUsernameField = new JTextField(20);  // Set preferred size
-        loginUsernameField.setMaximumSize(new Dimension(200, 30));
-        loginUsernameField.setHorizontalAlignment(JTextField.LEFT);
+        loginUsernameField = new JTextField("Username");
+        FieldStyle(loginUsernameField);
+        StyleField.FieldStyle(loginUsernameField);
 
         // Password field
-        loginPasswordField = new JPasswordField(20);  // Set preferred size
-        loginPasswordField.setMaximumSize(new Dimension(200, 30));
-        loginPasswordField.setHorizontalAlignment(JPasswordField.LEFT);
+        loginPasswordField = new JPasswordField("Password");
+        FieldStyle(loginPasswordField);
+        StyleField.FieldStyle(loginPasswordField);
 
         // Error message label (Initially hidden)
         errorLabel = new JLabel("Incorrect username or password");
@@ -58,7 +60,7 @@ public class LoginPanel {
 
         // Login button
         JButton loginButton = new JButton("Login");
-        StyleButton.styleButton(loginButton);
+        StyleButton.styleButton(loginButton, 200);
         loginButton.setPreferredSize(new Dimension(200, 40));
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -68,11 +70,18 @@ public class LoginPanel {
             String password = new String(loginPasswordField.getPassword()).trim();
             if (userAuth.login(username, password)) {
                 JOptionPane.showMessageDialog(this.getLoginPanel(), "Login successful!");
+
+                // Create and add the dashboard with the username
+                Dashboard dashboard = new Dashboard(cardLayout, cardPanel, userAuth, username);
+                cardPanel.add(dashboard.getDashboardPanel(), "panels.Dashboard");
+
+                // Navigate to the dashboard
                 cardLayout.show(cardPanel, "panels.Dashboard");
+
                 errorLabel.setVisible(false); // Hide error label on successful login
             } else {
                 JOptionPane.showMessageDialog(this.getLoginPanel(), "Invalid username or password.");
-                errorLabel.setVisible(true);  // Show error label on failed login
+                errorLabel.setVisible(true); // Show error label on failed login
             }
         });
 
@@ -140,6 +149,19 @@ public class LoginPanel {
                 JOptionPane.showMessageDialog(null, "No user found with that full name.");
             }
         }
+    }
+
+    public static void FieldStyle(JTextField textField) {
+        textField.setPreferredSize(new Dimension(200, 30));
+        textField.setMaximumSize(new Dimension(200, 30));
+        textField.setHorizontalAlignment(JTextField.LEFT);
+        textField.setForeground(Color.LIGHT_GRAY); // Set placeholder color
+    }
+    public static void FieldStyle(JPasswordField passwordField) {
+        passwordField.setPreferredSize(new Dimension(200, 30));
+        passwordField.setMaximumSize(new Dimension(200, 30));
+        passwordField.setHorizontalAlignment(JTextField.LEFT);
+        passwordField.setForeground(Color.LIGHT_GRAY);
     }
 
     public JPanel getLoginPanel() {

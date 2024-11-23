@@ -18,7 +18,7 @@ public class RegisterPanel {
         // Top panel with back button
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("Back");
-        StyleButton.styleButton(backButton);
+        StyleButton.styleButton(backButton, 80);
         backButton.setMaximumSize(new Dimension(100,30));
         backButton.addActionListener(e -> cardLayout.show(cardPanel, "main.Index"));
         topPanel.setBackground(ColorChoice.BACKGROUND);
@@ -38,95 +38,23 @@ public class RegisterPanel {
 
         // Username field
         JTextField registerUsernameField = new JTextField("Username");
-        FieldStyle(registerUsernameField);
-
-        registerUsernameField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (registerUsernameField.getText().equals("Username")) {
-                    registerUsernameField.setText(""); // Remove placeholder text
-                    registerUsernameField.setForeground(Color.BLACK); // Reset text color
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (registerUsernameField.getText().isEmpty()) {
-                    registerUsernameField.setForeground(Color.LIGHT_GRAY); // Placeholder text color
-                    registerUsernameField.setText("Username"); // Reset to placeholder text
-                }
-            }
-        });
+        StyleField.FieldStyle(registerUsernameField);
 
         // Full Name field
         JTextField fullNameField = new JTextField("Full Name");
-        FieldStyle(fullNameField);
-
-        fullNameField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (fullNameField.getText().equals("Full Name")) {
-                    fullNameField.setText(""); // Remove placeholder text
-                    fullNameField.setForeground(Color.BLACK); // Reset text color
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (fullNameField.getText().isEmpty()) {
-                    fullNameField.setForeground(Color.LIGHT_GRAY); // Placeholder text color
-                    fullNameField.setText("Full Name"); // Reset to placeholder text
-                }
-            }
-        });
+        StyleField.FieldStyle(fullNameField);
 
         // Password field
         JPasswordField registerPasswordField = new JPasswordField("Password");
-        FieldStyle(registerPasswordField);
-
-        registerPasswordField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (new String(registerPasswordField.getPassword()).equals("Password")) {
-                    registerPasswordField.setText(""); // Remove placeholder text
-                    registerPasswordField.setForeground(Color.BLACK); // Reset text color
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (new String(registerPasswordField.getPassword()).isEmpty()) {
-                    registerPasswordField.setForeground(Color.LIGHT_GRAY); // Placeholder text color
-                    registerPasswordField.setText("Password"); // Reset to placeholder text
-                }
-            }
-        });
+        StyleField.FieldStyle(registerPasswordField);
 
         // Confirm Password field
         JPasswordField confirmPasswordField = new JPasswordField("Confirm Password");
-        FieldStyle(confirmPasswordField);
-
-        confirmPasswordField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (new String(confirmPasswordField.getPassword()).equals("Confirm Password")) {
-                    confirmPasswordField.setText(""); // Remove placeholder text
-                    confirmPasswordField.setForeground(Color.BLACK); // Reset text color
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (new String(confirmPasswordField.getPassword()).isEmpty()) {
-                    confirmPasswordField.setForeground(Color.LIGHT_GRAY); // Placeholder text color
-                    confirmPasswordField.setText("Confirm Password"); // Reset to placeholder text
-                }
-            }
-        });
+        StyleField.FieldStyle(confirmPasswordField);
 
         // Register button
         JButton registerButton = new JButton("Register");
-        StyleButton.styleButton(registerButton);
+        StyleButton.styleButton(registerButton, 200);
         registerButton.setPreferredSize(new Dimension(200, 40));
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -136,12 +64,18 @@ public class RegisterPanel {
             String fullName = fullNameField.getText().trim(); // Get the full name
             String password = new String(registerPasswordField.getPassword()).trim(); // Correct field name
             String confirmPassword = new String(confirmPasswordField.getPassword()).trim(); // Correct field name
+
             boolean nullCheck = username.equals("") || fullName.equals("")
                     || password.equals("") || confirmPassword.equals("");
             boolean placeHolderCheck = username.equals("Username") || fullName.equals("Full Name") ||
                     password.equals("Password") || confirmPassword.equals("Confirm Password");
 
             // Password checks
+            if(password.length() < 5){
+                JOptionPane.showMessageDialog(null, "Password must be at least 5 characters");
+                return;
+            }
+
             if(nullCheck || placeHolderCheck) {
                 JOptionPane.showMessageDialog(null, "Please fill all the fields.");
                 return;
@@ -178,19 +112,6 @@ public class RegisterPanel {
         // Size and alignment to be at the center of the screen
         centerPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerPanel.add(centerPanel, BorderLayout.CENTER);
-    }
-
-    public static void FieldStyle(JTextField textField) {
-        textField.setPreferredSize(new Dimension(200, 30));
-        textField.setMaximumSize(new Dimension(200, 30));
-        textField.setHorizontalAlignment(JTextField.LEFT);
-        textField.setForeground(Color.LIGHT_GRAY); // Set placeholder color
-    }
-    public static void FieldStyle(JPasswordField passwordField) {
-        passwordField.setPreferredSize(new Dimension(200, 30));
-        passwordField.setMaximumSize(new Dimension(200, 30));
-        passwordField.setHorizontalAlignment(JTextField.LEFT);
-        passwordField.setForeground(Color.LIGHT_GRAY);
     }
 
     public JPanel getRegisterPanel() {

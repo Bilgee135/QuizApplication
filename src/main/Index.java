@@ -19,7 +19,6 @@ public class Index extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Center the window
 
-        // Create the CardLayout panel to hold different screens
         this.cardLayout = cardLayout;
         this.cardPanel = cardPanel;
 
@@ -27,7 +26,6 @@ public class Index extends JFrame {
         cardPanel.add(createMainPanel(), "main.Index");
         cardPanel.add(new LoginPanel(cardLayout, cardPanel, userAuth).getLoginPanel(), "LoginPage");
         cardPanel.add(new RegisterPanel(cardLayout, cardPanel, userAuth).getRegisterPanel(), "RegisterPage");
-        cardPanel.add(new Dashboard(cardLayout, cardPanel, userAuth).getDashboardPanel(), "panels.Dashboard");
 
         cardLayout.show(cardPanel, "main.Index"); // sets the first page to be main.Index.java
 
@@ -53,13 +51,13 @@ public class Index extends JFrame {
 
         // Login button
         JButton loginButton = new JButton("Login");
-        StyleButton.styleButton(loginButton);
+        StyleButton.styleButton(loginButton, 200);
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.addActionListener(e -> cardLayout.show(cardPanel, "LoginPage"));
 
         // Signup button
         JButton signupButton = new JButton("Signup");
-        StyleButton.styleButton(signupButton);
+        StyleButton.styleButton(signupButton, 200);
         signupButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         signupButton.setPreferredSize(new Dimension(200, 40));
         signupButton.addActionListener(e -> cardLayout.show(cardPanel, "RegisterPage"));

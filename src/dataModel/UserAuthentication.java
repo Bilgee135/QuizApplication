@@ -69,6 +69,11 @@ public class UserAuthentication {
         return null;  // No user found with that full name
     }
 
+    public String getFullname(String username) {
+        User user = userDatabase.get(username);
+        return user != null ? user.getFullName() : null;
+    }
+
     // Write a new user to the CSV file
     private void saveUserToCSV(String username, String fullName, String password) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, true))) {

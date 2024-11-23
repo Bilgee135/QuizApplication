@@ -20,7 +20,7 @@ public class Dashboard {
     private JButton logoutButton;
     private UserAuthentication userAuth;
 
-    public Dashboard(CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth) {
+    public Dashboard(CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth, String username) {
 
         // Initialize the main dashboard panel
         dashboardPanel = new JPanel();
@@ -33,7 +33,7 @@ public class Dashboard {
         topPanel.setBackground(ColorChoice.BACKGROUND);
 
         // Welcome message
-        welcomeLabel = new JLabel("Welcome User!");
+        welcomeLabel = new JLabel("Welcome " + userAuth.getFullname(username) + "!");
         welcomeLabel.setForeground(ColorChoice.TEXT_COLOR);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
         welcomeLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -53,10 +53,10 @@ public class Dashboard {
         buttonPanel.setBackground(ColorChoice.BACKGROUND);
 
         leaderboardButton = new JButton("Leaderboard");
-        StyleButton.styleButton(leaderboardButton);
+        StyleButton.styleButton(leaderboardButton, 200);
 
         logoutButton = new JButton("Logout");
-        StyleButton.styleButton(logoutButton);
+        StyleButton.styleButton(logoutButton, 200);
 
         leaderboardButton.addActionListener(new ActionListener() {
             @Override
@@ -107,26 +107,43 @@ public class Dashboard {
                 }
 
                 JButton topicButton = new JButton(topicName); // Use the topic name
-                StyleButton.styleButton(topicButton);
+                StyleButton.styleButton(topicButton, 200);
 
                 // When clicked on the button, it loads the questions and quiz
                 String finalTopicName = topicName;
                 topicButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        File topicFile = new File("src/topicQuestions/QUES-" + finalTopicName.replace(" ", "_") + ".xml");
-                        List<Question> topicQuestions = QuizLoader.loadQuestions(topicFile);
+                        // Dialog to either start or cancel the quiz
+                        int response = JOptionPane.showOptionDialog(
+                                dashboardPanel,
+                                "Chosen Topic: " + finalTopicName + "\nDo you wish to proceed?",
+                                "Confirm Topic Selection",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                new ImageIcon("src/customization/checkIcon.png"),
+                                new String[]{"Start", "Cancel"}, // Custom button labels
+                                "Start" // Default selected button
+                        );
 
-                        if (topicQuestions.isEmpty()) {
-                            JOptionPane.showMessageDialog(dashboardPanel, "No questions available for this topic.");
-                            return;
+                        // Checks if the user has decided to do the quiz
+                        if (response == JOptionPane.YES_OPTION) { // User clicked "Start"
+                            File topicFile = new File("src/topicQuestions/QUES-" + finalTopicName.replace(" ", "_") + ".xml");
+                            List<Question> topicQuestions = QuizLoader.loadQuestions(topicFile);
+
+                            if (topicQuestions.isEmpty()) {
+                                JOptionPane.showMessageDialog(dashboardPanel, "No questions available for this topic.");
+                                return;
+                            }
+
+                            // Load the QuizPanel
+                            QuizPanel quizPanel = new QuizPanel(topicQuestions, cardLayout, cardPanel, userAuth);
+                            cardPanel.add(quizPanel, "panels.QuizPanel");
+                            cardLayout.show(cardPanel, "panels.QuizPanel");
                         }
-
-                        QuizPanel quizPanel = new QuizPanel(topicQuestions);
-                        cardPanel.add(quizPanel, "panels.QuizPanel");
-                        cardLayout.show(cardPanel, "panels.QuizPanel");
                     }
                 });
+
 
 
                 buttonGridPanel.add(topicButton);
