@@ -87,7 +87,7 @@ public class LoginPanel {
 
         JLabel forgotPasswordLabel = new JLabel("<html>Forgot Password?</html>", SwingConstants.CENTER);
         forgotPasswordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        forgotPasswordLabel.setForeground(Color.BLUE);
+        forgotPasswordLabel.setForeground(ColorChoice.TEXT_COLOR);
         forgotPasswordLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         forgotPasswordLabel.addMouseListener(new MouseAdapter() {
@@ -101,7 +101,7 @@ public class LoginPanel {
         // Register link label below login button
         JLabel registerLinkLabel = new JLabel("<html>Don't have an account? <a href=''>Register Now!</a></html>", SwingConstants.CENTER);
         registerLinkLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        registerLinkLabel.setForeground(Color.BLACK);
+        registerLinkLabel.setForeground(ColorChoice.TEXT_COLOR);
         registerLinkLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         registerLinkLabel.addMouseListener(new MouseAdapter() {
