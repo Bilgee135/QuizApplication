@@ -3,7 +3,7 @@ package panels;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.List;
 import dataModel.*;
@@ -15,14 +15,15 @@ public class QuizPanel extends JPanel {
     private final List<Question> quizQuestions;
     private int currentQuestionIndex = 0;
     private int correctAnswerCount = 0;
+    private int questionNumber = 1;
 
-    private JTextArea questionArea;
-    private JLabel topicLabel;
-    private JLabel difficultyLabel;
-    private JRadioButton[] optionButtons;
-    private JButton nextButton;
-    private ButtonGroup optionGroup;
-    private UserAuthentication userAuth;
+    private final JTextArea questionArea;
+    private final JLabel topicLabel;
+    private final JLabel difficultyLabel;
+    private final JRadioButton[] optionButtons;
+    private final JButton nextButton;
+    private final ButtonGroup optionGroup;
+    private final UserAuthentication userAuth;
 
     public QuizPanel(List<Question> selectedQuestions, CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth) {
         this.userAuth = userAuth;
@@ -72,14 +73,14 @@ public class QuizPanel extends JPanel {
         JPanel navigationPanel = new JPanel();
         navigationPanel.setBackground(ColorChoice.BACKGROUND);
 
-        // Back button
+        // Quit button
         JButton backButton = new JButton("Quit");
         StyleButton.styleButton(backButton, 200); // Custom styling
         backButton.addActionListener(e -> {
             // Confirmation dialog before quitting the quiz
             int response = JOptionPane.showConfirmDialog(
                     this,
-                    "Are you sure you want to quit the quiz and return to the dashboard?"+"\nYour attempt won't be saved.",
+                    "Are you sure you want to quit the quiz and return to the dashboard?",
                     "Quit Quiz",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE
@@ -94,7 +95,7 @@ public class QuizPanel extends JPanel {
         nextButton = new JButton("Next");
         StyleButton.styleButton(nextButton, 200); // Custom styling
         nextButton.setEnabled(false); // Disabled until an answer is selected
-        nextButton.addActionListener(e -> loadNextQuestion());
+        nextButton.addActionListener(e -> loadNextQuestion(cardLayout, cardPanel));
 
         // Add buttons to the navigation panel
         navigationPanel.add(backButton);
@@ -106,13 +107,13 @@ public class QuizPanel extends JPanel {
         add(navigationPanel, BorderLayout.SOUTH);
 
         // Load the first question
-        loadQuestion();
+        loadQuestion(cardLayout, cardPanel);
     }
 
 
-    private void loadQuestion() {
+    private void loadQuestion(CardLayout cardLayout, JPanel cardPanel) {
         if (currentQuestionIndex >= quizQuestions.size()) {
-            showFinalScore();
+            showFinalScore(cardLayout, cardPanel);
             return;
         }
 
@@ -124,7 +125,7 @@ public class QuizPanel extends JPanel {
         difficultyLabel.setText("Difficulty: " + question.getDifficulty());
         difficultyLabel.setForeground(ColorChoice.TEXT_COLOR);
         difficultyLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        questionArea.setText("Question: " + question.getQuestionStatement());
+        questionArea.setText("Question " + questionNumber +": " + question.getQuestionStatement());
         questionArea.setForeground(ColorChoice.TEXT_COLOR);
         questionArea.setFont(new Font("Arial", Font.BOLD, 18));
 
@@ -160,17 +161,30 @@ public class QuizPanel extends JPanel {
             button.setEnabled(false);
         }
 
-        // Enable "Next" button
         nextButton.setEnabled(true);
     }
 
-    private void loadNextQuestion() {
+    private void loadNextQuestion(CardLayout cardLayout, JPanel cardPanel) {
         currentQuestionIndex++;
-        loadQuestion();
+        questionNumber++;
+        loadQuestion(cardLayout, cardPanel);
     }
 
-    private void showFinalScore() {
-        JOptionPane.showMessageDialog(this, "Quiz completed! Your score: " + correctAnswerCount, "Quiz Finished", JOptionPane.INFORMATION_MESSAGE);
+    private void showFinalScore(CardLayout cardLayout, JPanel cardPanel) {
+        int response = JOptionPane.showOptionDialog(
+                this,
+                "Quiz completed!\nCorrect ansewr: " + correctAnswerCount + "\nPercentage: " + correctAnswerCount * 10 + "%",
+                "Quiz finished!",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                new ImageIcon("src/customization/check.png"),
+                new String[]{"Return", "Cancel"},
+                "Return" // Default selected button
+        );
+        if (response == JOptionPane.YES_OPTION) {
+            cardLayout.show(cardPanel, "panels.Dashboard"); // Navigate back to Dashboard
+        }
+
 
         // Save score to file
         saveScoreToFile(correctAnswerCount);

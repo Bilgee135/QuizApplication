@@ -9,7 +9,7 @@ public class StyleButton {
         button.setMinimumSize(new Dimension(width, 30));
         button.setMaximumSize(new Dimension(width, 30));
         button.setBackground(ColorChoice.BUTTON_BACKGROUND);
-        button.setForeground(ColorChoice.BACKGROUND);
+        button.setForeground(ColorChoice.BUTTON_FOREGROUND);
         button.setFocusPainted(false);
         button.setFocusable(false);
         button.setFont(new Font("Arial", Font.BOLD, 14));

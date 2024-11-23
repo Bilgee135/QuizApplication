@@ -117,13 +117,13 @@ public class Dashboard {
                         // Dialog to either start or cancel the quiz
                         int response = JOptionPane.showOptionDialog(
                                 dashboardPanel,
-                                "Chosen Topic: " + finalTopicName + "\nDo you wish to proceed?",
+                                "Chosen Topic: " + finalTopicName + "\nTotal Question: 10" + "\nDo you wish to proceed?",
                                 "Confirm Topic Selection",
                                 JOptionPane.YES_NO_OPTION,
                                 JOptionPane.QUESTION_MESSAGE,
                                 new ImageIcon("src/customization/checkIcon.png"),
-                                new String[]{"Start", "Cancel"}, // Custom button labels
-                                "Start" // Default selected button
+                                new String[]{"Start", "Cancel"},
+                                "Start"
                         );
 
                         // Checks if the user has decided to do the quiz
