@@ -1,3 +1,8 @@
+package main;
+
+import customization.*;
+import panels.*;
+import dataModel.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,15 +23,13 @@ public class Index extends JFrame {
         this.cardLayout = cardLayout;
         this.cardPanel = cardPanel;
 
-        // Initialize the main panel (Index), login panel, and register panel
-        cardPanel.add(createMainPanel(), "Index");
+        // Initialize the main panel (main.Index), login panel, and register panel
+        cardPanel.add(createMainPanel(), "main.Index");
         cardPanel.add(new LoginPanel(cardLayout, cardPanel, userAuth).getLoginPanel(), "LoginPage");
         cardPanel.add(new RegisterPanel(cardLayout, cardPanel, userAuth).getRegisterPanel(), "RegisterPage");
+        cardPanel.add(new Dashboard(cardLayout, cardPanel, userAuth).getDashboardPanel(), "panels.Dashboard");
 
-        MainDashboard mainDashboard = new MainDashboard(cardLayout, cardPanel);
-        cardPanel.add(mainDashboard.getDashboardPanel(), "MainDashboard");
-
-        cardLayout.show(cardPanel, "Index"); // sets the first page to be Index.java
+        cardLayout.show(cardPanel, "main.Index"); // sets the first page to be main.Index.java
 
         add(cardPanel);
         setVisible(true);
@@ -36,37 +39,36 @@ public class Index extends JFrame {
     private JPanel createMainPanel() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBackground(Color.decode("#EBF2FA"));
+        mainPanel.setBackground(ColorChoice.BACKGROUND);
 
         // Title label
         JLabel titleLabel = new JLabel("Quiz Application");
-        titleLabel.setFont(new Font("Calibre", Font.BOLD, 30));
+        titleLabel.setFont(new Font("Calibre", Font.BOLD, 40));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setForeground(Color.decode("#427AA1"));
+        titleLabel.setForeground(ColorChoice.TEXT_COLOR);
+        JLabel titleLabel2 = new JLabel("Test your knowledge!");
+        titleLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel2.setForeground(ColorChoice.TEXT_COLOR);
+        titleLabel2.setFont(new Font("Calibre", Font.BOLD, 20));
 
         // Login button
         JButton loginButton = new JButton("Login");
-        loginButton.setPreferredSize(new Dimension(200, 40));
-        loginButton.setMaximumSize(new Dimension(200, 40));
-        loginButton.setBackground(Color.decode("#064789"));
-        loginButton.setForeground(Color.decode("#EBF2FA"));
+        StyleButton.styleButton(loginButton);
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loginButton.setFocusable(false);
         loginButton.addActionListener(e -> cardLayout.show(cardPanel, "LoginPage"));
 
         // Signup button
         JButton signupButton = new JButton("Signup");
-        signupButton.setPreferredSize(new Dimension(200, 40));
-        signupButton.setMaximumSize(new Dimension(200, 40));
-        signupButton.setBackground(Color.decode("#064789"));
-        signupButton.setForeground(Color.decode("#EBF2FA"));
+        StyleButton.styleButton(signupButton);
         signupButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        signupButton.setFocusable(false);
+        signupButton.setPreferredSize(new Dimension(200, 40));
         signupButton.addActionListener(e -> cardLayout.show(cardPanel, "RegisterPage"));
 
         // Add components to the main panel with spacing
         mainPanel.add(Box.createVerticalStrut(100));
         mainPanel.add(titleLabel);
+        mainPanel.add(Box.createVerticalStrut(20));
+        mainPanel.add(titleLabel2);
         mainPanel.add(Box.createVerticalStrut(50));
         mainPanel.add(loginButton);
         mainPanel.add(Box.createVerticalStrut(20));
@@ -75,17 +77,14 @@ public class Index extends JFrame {
         return mainPanel;
     }
 
-    // Main method to initialize the application
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            UserAuthentication userAuth = new UserAuthentication();  // Create an instance of UserAuthentication
+            UserAuthentication userAuth = new UserAuthentication();  // instance of dataModel.UserAuthentication
 
-            // Create the CardLayout and cardPanel to hold different panels
             CardLayout cardLayout = new CardLayout();
-            JPanel cardPanel = new JPanel(cardLayout);
+            JPanel cardPanel = new JPanel(cardLayout); // creates to hold different panels
 
-            // Create and add Index and RegisterPanel
-            new Index(cardLayout, cardPanel, userAuth);
+            new Index(cardLayout, cardPanel, userAuth); // initialize
         });
     }
 }

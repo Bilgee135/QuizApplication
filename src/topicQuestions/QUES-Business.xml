@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <questions>
-    <!-- EASY QUESTIONS -->
     <question difficulty="EASY">
         <topic>Business</topic>
         <questionString>What is a stakeholder in business?</questionString>
@@ -33,8 +32,6 @@
         <option>Actions to achieve success</option>
         <option answer="true">A specific, measurable objective the business aims to achieve</option>
     </question>
-
-    <!-- MEDIUM QUESTIONS -->
     <question difficulty="MEDIUM">
         <topic>Business</topic>
         <questionString>What is the primary purpose of a balance sheet?</questionString>
@@ -59,8 +56,6 @@
         <option>List of employees’ roles</option>
         <option answer="true">The purpose and primary objectives of the business</option>
     </question>
-
-    <!-- HARD QUESTIONS -->
     <question difficulty="HARD">
         <topic>Business</topic>
         <questionString>Which of the following strategies is described as "differentiation"?</questionString>

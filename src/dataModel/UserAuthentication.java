@@ -1,3 +1,5 @@
+package dataModel;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +46,7 @@ public class UserAuthentication {
     public boolean register(String username, String fullName, String password) {
         // Check if the username already exists
         if (userDatabase.containsKey(username)) {
-            return false; // User already exists
+            return false; // dataModel.User already exists
         }
 
         // Add the new user to the in-memory database

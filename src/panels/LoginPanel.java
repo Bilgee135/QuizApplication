@@ -1,7 +1,11 @@
+package panels;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import dataModel.UserAuthentication;
+import customization.*;
 
 public class LoginPanel {
     private JPanel loginPanel;
@@ -11,31 +15,30 @@ public class LoginPanel {
     private JLabel errorLabel;  // Move error label here to manage visibility
 
     // Modify constructor to accept userAuth
-    public LoginPanel(CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth) {
+    public LoginPanel(CardLayout cardLayout, JPanel cardPanel, dataModel.UserAuthentication userAuth) {
         this.userAuth = userAuth;  // Initialize userAuth here
         loginPanel = new JPanel(new BorderLayout());
 
         // Top panel with back button
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("Back");
-        backButton.setFocusable(false);
-        backButton.addActionListener(e -> cardLayout.show(cardPanel, "Index"));
-        backButton.setBackground(Color.decode("#064789"));
-        backButton.setForeground(Color.decode("#EBF2FA"));
-        topPanel.setBackground(Color.decode("#EBF2FA"));
+        StyleButton.styleButton(backButton);
+        backButton.setMaximumSize(new Dimension(100,30));
+        backButton.addActionListener(e -> cardLayout.show(cardPanel, "main.Index"));
+        topPanel.setBackground(ColorChoice.BACKGROUND);
         topPanel.add(backButton);
         loginPanel.add(topPanel, BorderLayout.NORTH);
 
         // Center panel for login components
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBackground(Color.decode("#EBF2FA"));
+        centerPanel.setBackground(ColorChoice.BACKGROUND);
 
         // Title label
         JLabel titleLabel = new JLabel("Login");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setForeground(Color.decode("#427AA1"));
+        titleLabel.setForeground(ColorChoice.TEXT_COLOR);
 
         // Username field
         loginUsernameField = new JTextField(20);  // Set preferred size
@@ -55,19 +58,17 @@ public class LoginPanel {
 
         // Login button
         JButton loginButton = new JButton("Login");
+        StyleButton.styleButton(loginButton);
         loginButton.setPreferredSize(new Dimension(200, 40));
-        loginButton.setMaximumSize(new Dimension(200, 40));
-        loginButton.setBackground(Color.decode("#064789"));
-        loginButton.setForeground(Color.decode("#EBF2FA"));
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loginButton.setFocusable(false);
+
 
         loginButton.addActionListener(e -> {
             String username = loginUsernameField.getText().trim();
             String password = new String(loginPasswordField.getPassword()).trim();
             if (userAuth.login(username, password)) {
                 JOptionPane.showMessageDialog(this.getLoginPanel(), "Login successful!");
-                cardLayout.show(cardPanel, "MainDashboard");
+                cardLayout.show(cardPanel, "panels.Dashboard");
                 errorLabel.setVisible(false); // Hide error label on successful login
             } else {
                 JOptionPane.showMessageDialog(this.getLoginPanel(), "Invalid username or password.");
@@ -122,7 +123,6 @@ public class LoginPanel {
 
     // Method to open the "Forgot Password" dialog
     private void openForgotPasswordDialog() {
-        // Create a dialog for password retrieval
         JTextField fullNameField = new JTextField(20);
         JPanel panel = new JPanel();
         panel.add(new JLabel("Enter your full name:"));

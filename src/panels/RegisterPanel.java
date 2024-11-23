@@ -1,11 +1,15 @@
+package panels;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import dataModel.*;
+import customization.*;
 
 public class RegisterPanel {
     public JPanel registerPanel;
-    private UserAuthentication userAuth;  // Instance of UserAuthentication
+    private UserAuthentication userAuth;  // Instance of dataModel.UserAuthentication
 
     public RegisterPanel(CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth) {
         this.userAuth = userAuth;
@@ -14,31 +18,27 @@ public class RegisterPanel {
         // Top panel with back button
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("Back");
-        backButton.setFocusable(false);
-        backButton.addActionListener(e -> cardLayout.show(cardPanel, "LoginPage"));
-        backButton.setBackground(Color.decode("#064789"));
-        backButton.setForeground(Color.decode("#EBF2FA"));
-        topPanel.setBackground(Color.decode("#EBF2FA"));
+        StyleButton.styleButton(backButton);
+        backButton.setMaximumSize(new Dimension(100,30));
+        backButton.addActionListener(e -> cardLayout.show(cardPanel, "main.Index"));
+        topPanel.setBackground(ColorChoice.BACKGROUND);
         topPanel.add(backButton);
         registerPanel.add(topPanel, BorderLayout.NORTH);
 
         // Center panel for registration components
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBackground(Color.decode("#EBF2FA"));
+        centerPanel.setBackground(ColorChoice.BACKGROUND);
 
         // Title label
-        JLabel titleLabel = new JLabel("Create New Account");
+        JLabel titleLabel = new JLabel("Create a new account");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setForeground(Color.decode("#427AA1"));
+        titleLabel.setForeground(ColorChoice.TEXT_COLOR);
 
         // Username field
         JTextField registerUsernameField = new JTextField("Username");
-        registerUsernameField.setPreferredSize(new Dimension(200, 30));
-        registerUsernameField.setMaximumSize(new Dimension(200, 30));
-        registerUsernameField.setHorizontalAlignment(JTextField.LEFT);
-        registerUsernameField.setForeground(Color.LIGHT_GRAY); // Set placeholder color
+        FieldStyle(registerUsernameField);
 
         registerUsernameField.addFocusListener(new FocusAdapter() {
             @Override
@@ -60,10 +60,7 @@ public class RegisterPanel {
 
         // Full Name field
         JTextField fullNameField = new JTextField("Full Name");
-        fullNameField.setPreferredSize(new Dimension(200, 30));
-        fullNameField.setMaximumSize(new Dimension(200, 30));
-        fullNameField.setHorizontalAlignment(JTextField.LEFT);
-        fullNameField.setForeground(Color.LIGHT_GRAY); // Set placeholder color
+        FieldStyle(fullNameField);
 
         fullNameField.addFocusListener(new FocusAdapter() {
             @Override
@@ -85,10 +82,7 @@ public class RegisterPanel {
 
         // Password field
         JPasswordField registerPasswordField = new JPasswordField("Password");
-        registerPasswordField.setPreferredSize(new Dimension(200, 30));
-        registerPasswordField.setMaximumSize(new Dimension(200, 30));
-        registerPasswordField.setHorizontalAlignment(JTextField.LEFT);
-        registerPasswordField.setForeground(Color.LIGHT_GRAY); // Set placeholder color
+        FieldStyle(registerPasswordField);
 
         registerPasswordField.addFocusListener(new FocusAdapter() {
             @Override
@@ -110,10 +104,7 @@ public class RegisterPanel {
 
         // Confirm Password field
         JPasswordField confirmPasswordField = new JPasswordField("Confirm Password");
-        confirmPasswordField.setPreferredSize(new Dimension(200, 30));
-        confirmPasswordField.setMaximumSize(new Dimension(200, 30));
-        confirmPasswordField.setHorizontalAlignment(JTextField.LEFT);
-        confirmPasswordField.setForeground(Color.LIGHT_GRAY); // Set placeholder color
+        FieldStyle(confirmPasswordField);
 
         confirmPasswordField.addFocusListener(new FocusAdapter() {
             @Override
@@ -135,12 +126,9 @@ public class RegisterPanel {
 
         // Register button
         JButton registerButton = new JButton("Register");
+        StyleButton.styleButton(registerButton);
         registerButton.setPreferredSize(new Dimension(200, 40));
-        registerButton.setMaximumSize(new Dimension(200, 40));
-        registerButton.setBackground(Color.decode("#064789"));
-        registerButton.setForeground(Color.decode("#EBF2FA"));
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        registerButton.setFocusable(false);
 
         // Add action listener for register button
         registerButton.addActionListener(e -> {
@@ -148,17 +136,26 @@ public class RegisterPanel {
             String fullName = fullNameField.getText().trim(); // Get the full name
             String password = new String(registerPasswordField.getPassword()).trim(); // Correct field name
             String confirmPassword = new String(confirmPasswordField.getPassword()).trim(); // Correct field name
+            boolean nullCheck = username.equals("") || fullName.equals("")
+                    || password.equals("") || confirmPassword.equals("");
+            boolean placeHolderCheck = username.equals("Username") || fullName.equals("Full Name") ||
+                    password.equals("Password") || confirmPassword.equals("Confirm Password");
 
-            // Check if passwords match
+            // Password checks
+            if(nullCheck || placeHolderCheck) {
+                JOptionPane.showMessageDialog(null, "Please fill all the fields.");
+                return;
+            }
+
             if (!password.equals(confirmPassword)) {
                 JOptionPane.showMessageDialog(null, "Passwords do not match. Please try again.");
                 return;
             }
 
-            // Call the register method of UserAuthentication
+            // Call the register method of dataModel.UserAuthentication
             if (userAuth.register(username, fullName, password)) {
                 JOptionPane.showMessageDialog(null, "Registration Successful!");
-                cardLayout.show(cardPanel, "Index");  // Navigate back to index page
+                cardLayout.show(cardPanel, "main.Index");  // Navigate back to index page
             } else {
                 JOptionPane.showMessageDialog(null, "Username already taken. Please try again.");
             }
@@ -181,6 +178,19 @@ public class RegisterPanel {
         // Size and alignment to be at the center of the screen
         centerPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerPanel.add(centerPanel, BorderLayout.CENTER);
+    }
+
+    public static void FieldStyle(JTextField textField) {
+        textField.setPreferredSize(new Dimension(200, 30));
+        textField.setMaximumSize(new Dimension(200, 30));
+        textField.setHorizontalAlignment(JTextField.LEFT);
+        textField.setForeground(Color.LIGHT_GRAY); // Set placeholder color
+    }
+    public static void FieldStyle(JPasswordField passwordField) {
+        passwordField.setPreferredSize(new Dimension(200, 30));
+        passwordField.setMaximumSize(new Dimension(200, 30));
+        passwordField.setHorizontalAlignment(JTextField.LEFT);
+        passwordField.setForeground(Color.LIGHT_GRAY);
     }
 
     public JPanel getRegisterPanel() {
