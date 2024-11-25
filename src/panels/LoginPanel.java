@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import dataModel.UserAuthentication;
 import customization.*;
+    import dataModel.*;
 
 public class LoginPanel {
     private JPanel loginPanel;
@@ -17,7 +18,7 @@ public class LoginPanel {
     private JLabel errorLabel;  // Move error label here to manage visibility
 
     // Modify constructor to accept userAuth
-    public LoginPanel(CardLayout cardLayout, JPanel cardPanel, dataModel.UserAuthentication userAuth) {
+    public LoginPanel(CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth) {
         this.userAuth = userAuth;  // Initialize userAuth here
         loginPanel = new JPanel(new BorderLayout());
 
