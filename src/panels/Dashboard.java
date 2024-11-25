@@ -61,7 +61,9 @@ public class Dashboard {
         leaderboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(dashboardPanel, "Under development, come back later!");
+                Leaderboard leaderboardPanel = new Leaderboard(cardLayout, cardPanel, userAuth);
+                cardPanel.add(leaderboardPanel, "Leaderboard");
+                cardLayout.show(cardPanel, "Leaderboard");
             }
         });
 
@@ -137,7 +139,7 @@ public class Dashboard {
                             }
 
                             // Load the QuizPanel
-                            QuizPanel quizPanel = new QuizPanel(topicQuestions, cardLayout, cardPanel, userAuth);
+                            QuizPanel quizPanel = new QuizPanel(topicQuestions, cardLayout, cardPanel, userAuth, username);
                             cardPanel.add(quizPanel, "panels.QuizPanel");
                             cardLayout.show(cardPanel, "panels.QuizPanel");
                         }

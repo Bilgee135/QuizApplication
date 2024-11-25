@@ -16,6 +16,8 @@ public class QuizPanel extends JPanel {
     private int currentQuestionIndex = 0;
     private int correctAnswerCount = 0;
     private int questionNumber = 1;
+    private String topic = "";
+    private String currentUser = "";
 
     private final JTextArea questionArea;
     private final JLabel topicLabel;
@@ -25,7 +27,8 @@ public class QuizPanel extends JPanel {
     private final ButtonGroup optionGroup;
     private final UserAuthentication userAuth;
 
-    public QuizPanel(List<Question> selectedQuestions, CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth) {
+    public QuizPanel(List<Question> selectedQuestions, CardLayout cardLayout, JPanel cardPanel, UserAuthentication userAuth, String username) {
+        this.currentUser = username;
         this.userAuth = userAuth;
         // Shuffle and select questions
         Collections.shuffle(selectedQuestions);
@@ -57,7 +60,7 @@ public class QuizPanel extends JPanel {
         optionGroup = new ButtonGroup();
         for (int i = 0; i < optionButtons.length; i++) {
             optionButtons[i] = new JRadioButton();
-            optionButtons[i].setForeground(ColorChoice.TEXT_COLOR);
+            optionButtons[i].setForeground(ColorChoice.BUTTON_FOREGROUND);
             optionButtons[i].setBackground(ColorChoice.BACKGROUND);
             optionButtons[i].setFont(new Font("Arial", Font.PLAIN, 16));
             optionsPanel.setBackground(ColorChoice.BACKGROUND);
@@ -119,6 +122,7 @@ public class QuizPanel extends JPanel {
 
         // Get current question
         Question question = quizQuestions.get(currentQuestionIndex);
+        this.topic = question.getTopic();
         topicLabel.setText("Topic: " + question.getTopic());
         topicLabel.setForeground(ColorChoice.TEXT_COLOR);
         topicLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -187,7 +191,7 @@ public class QuizPanel extends JPanel {
 
 
         // Save score to file
-        saveScoreToFile(correctAnswerCount);
+        saveScoreToFile(correctAnswerCount, topic);
 
         // Optionally, notify parent component to switch back to dashboard
         Container parent = getParent();
@@ -196,10 +200,10 @@ public class QuizPanel extends JPanel {
         }
     }
 
-    private void saveScoreToFile(int score) {
-        String filename = "scores.txt";
+    private void saveScoreToFile(int score, String topic) {
+        String filename = "scores.csv";
         try (FileWriter writer = new FileWriter(filename, true)) {
-            writer.write("Score: " + score + "\n");
+            writer.write(userAuth.getFullname(this.currentUser)+","+topic+"," + score + "\n");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error saving score to file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
