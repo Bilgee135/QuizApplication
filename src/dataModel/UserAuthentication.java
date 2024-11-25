@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserAuthentication {
-    private static final String FILE_PATH = "users.csv"; // CSV file path
+    private static final String FILE_PATH = "src/database/users.csv"; // CSV file path
     private Map<String, User> userDatabase;
     private Map<String, String> fullNameToUsername;  // A map to store full name to username mapping
 

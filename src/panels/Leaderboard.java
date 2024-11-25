@@ -14,7 +14,7 @@ import dataModel.*;
 public class Leaderboard extends JPanel {
 
     private static final int LATEST_ATTEMPTS_PER_TOPIC = 3;
-    private static final String SCORES_FILE = "scores.csv";
+    private static final String SCORES_FILE = "src/database/scores.csv";
     private Map<String, List<ScoreAttempt>> latestAttempts = new HashMap<>();
     private Map<String, Integer> topScores = new HashMap<>();
     private UserAuthentication userAuth;

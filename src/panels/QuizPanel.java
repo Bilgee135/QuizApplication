@@ -201,7 +201,7 @@ public class QuizPanel extends JPanel {
     }
 
     private void saveScoreToFile(int score, String topic) {
-        String filename = "scores.csv";
+        String filename = "src/database/scores.csv";
         try (FileWriter writer = new FileWriter(filename, true)) {
             writer.write(userAuth.getFullname(this.currentUser)+","+topic+"," + score + "\n");
         } catch (IOException e) {
