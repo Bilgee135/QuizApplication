@@ -19,8 +19,8 @@
     <question difficulty="MEDIUM">
         <topic>Mathematics</topic>
         <questionString>Solve for x in the equation 2x + 5 = 15.</questionString>
-        <option>x = 5</option>
-        <option answer="true">x = 10</option>
+        <option>x = 10</option>
+        <option answer="true">x = 5</option>
         <option>x = 3</option>
         <option>x = 6</option>
     </question>
